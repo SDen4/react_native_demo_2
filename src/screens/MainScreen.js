@@ -3,7 +3,7 @@ import { View, StyleSheet, Text, Button } from 'react-native';
 
 export const MainScreen = ({ navigation }) => {
     const goToPost = () => {
-        console.log(navigation);
+        // console.log(navigation);
         navigation.navigate('Post');
     };
 

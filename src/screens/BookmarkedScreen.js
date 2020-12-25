@@ -1,18 +1,42 @@
 import React from 'react';
-import { View, StyleSheet, Text } from 'react-native';
+import { View, StyleSheet, FlatList } from 'react-native';
+import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 
-export const BookmarkedScreen = ({}) => {
+import { Post } from '../components/Post';
+import { DATA } from '../data';
+import { AppHeaderIcon } from '../components/AppHeaderIcon';
+
+export const BookmarkedScreen = ({ navigation }) => {
+    const goToPost = (post) => {
+        navigation.navigate('Post', { postId: post.id, date: post.date, booked: post.booked });
+    };
+
     return (
         <View style={styles.container}>
-            <Text>Bookmarked Screen</Text>
+            <FlatList
+                data={DATA.filter((item) => item.booked)}
+                keyExtractor={(key) => key.id.toString()}
+                renderItem={({ item }) => <Post post={item} onOpen={goToPost} />}
+            />
         </View>
     );
 };
 
+BookmarkedScreen.navigationOptions = {
+    headerTitle: 'Bookmarked posts',
+    headerLeft: () => (
+        <HeaderButtons HeaderButtonComponent={AppHeaderIcon}>
+            <Item
+                title='Toggle drawer'
+                iconName='ios-menu'
+                onPress={() => console.log('press menu')}
+            />
+        </HeaderButtons>
+    ),
+};
+
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
+        padding: 10,
     },
 });

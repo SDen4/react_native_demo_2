@@ -8,7 +8,7 @@ import { AppHeaderIcon } from '../components/AppHeaderIcon';
 
 export const MainScreen = ({ navigation }) => {
     const goToPost = (post) => {
-        navigation.navigate('Post', { postId: post.id, date: post.date });
+        navigation.navigate('Post', { postId: post.id, date: post.date, booked: post.booked });
     };
 
     return (
@@ -30,6 +30,15 @@ MainScreen.navigationOptions = {
                 title="Take a photo"
                 iconName="ios-camera"
                 onPress={() => console.log('press camera')}
+            />
+        </HeaderButtons>
+    ),
+    headerLeft: () => (
+        <HeaderButtons HeaderButtonComponent={AppHeaderIcon}>
+            <Item
+                title="Toggle drawer"
+                iconName="ios-menu"
+                onPress={() => console.log('press menu')}
             />
         </HeaderButtons>
     ),

@@ -4,6 +4,7 @@ import { createStackNavigator } from 'react-navigation-stack';
 import { Platform } from 'react-native';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { Ionicons } from '@expo/vector-icons';
+import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
 
 import { MainScreen } from '../screens/MainScreen';
 import { PostScreen } from '../screens/PostScreen';
@@ -42,30 +43,36 @@ const BookedNavigator = createStackNavigator(
     }
 );
 
-const BottomNavigator = createBottomTabNavigator(
-    {
-        Post: {
-            screen: PostNavigator,
-            navigationOptions: {
-                tabBarLabel: 'All',
-                tabBarIcon: (info) => (
-                    <Ionicons name='ios-albums' size={25} color={info.tintColor} />
-                ),
-            },
-        },
-        Bookmarked: {
-            screen: BookedNavigator,
-            navigationOptions: {
-                tabBarLabel: 'Bookmarked',
-                tabBarIcon: (info) => <Ionicons name='ios-star' size={25} color={info.tintColor} />,
-            },
+const bottomTabsConfig = {
+    Post: {
+        screen: PostNavigator,
+        navigationOptions: {
+            tabBarLabel: 'All',
+            tabBarIcon: (info) => <Ionicons name='ios-albums' size={25} color={info.tintColor} />,
         },
     },
-    {
-        tabBarOptions: {
-            activeTintColor: THEME.MAIN_COLOR,
+    Bookmarked: {
+        screen: BookedNavigator,
+        navigationOptions: {
+            tabBarLabel: 'Bookmarked',
+            tabBarIcon: (info) => <Ionicons name='ios-star' size={25} color={info.tintColor} />,
         },
-    }
-);
+    },
+};
+
+const BottomNavigator =
+    Platform.OS === 'android'
+        ? createMaterialBottomTabNavigator(bottomTabsConfig, {
+              activeTintColor: '#fff',
+              shifting: true,
+              barStyle: {
+                  backgroundColor: THEME.MAIN_COLOR,
+              },
+          })
+        : createBottomTabNavigator(bottomTabsConfig, {
+              tabBarOptions: {
+                  activeTintColor: THEME.MAIN_COLOR,
+              },
+          });
 
 export const AppNavigation = createAppContainer(BottomNavigator);

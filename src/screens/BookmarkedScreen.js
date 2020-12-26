@@ -12,15 +12,15 @@ export const BookmarkedScreen = ({ navigation }) => {
     return <PostList data={DATA.filter((item) => item.booked)} onOpen={goToPost} />;
 };
 
-BookmarkedScreen.navigationOptions = {
+BookmarkedScreen.navigationOptions = ({ navigation }) => ({
     headerTitle: 'Bookmarked posts',
     headerLeft: () => (
         <HeaderButtons HeaderButtonComponent={AppHeaderIcon}>
             <Item
                 title='Toggle drawer'
                 iconName='ios-menu'
-                onPress={() => console.log('press menu')}
+                onPress={() => navigation.toggleDrawer()}
             />
         </HeaderButtons>
     ),
-};
+});

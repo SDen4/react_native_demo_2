@@ -7,7 +7,9 @@ import { AppHeaderIcon } from '../components/AppHeaderIcon';
 export const AboutScreen = ({}) => {
     return (
         <View style={styles.container}>
-            <Text>About Screen</Text>
+            <Text>Post application</Text>
+            <Text>Version <Text style={styles.bold}>1.0.0.</Text></Text>
+            <Text>Created by Denis Skryabin</Text>
         </View>
     );
 };
@@ -31,4 +33,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     },
+    bold: {
+        fontFamily: 'open-bold'
+    }
 });

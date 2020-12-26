@@ -88,9 +88,32 @@ const CreateNavigator = createStackNavigator(
 const MainNavigator = createDrawerNavigator({
     PostsTabs: {
         screen: BottomNavigator,
+        navigationOptions: {
+            drawerLabel: 'Main',
+            drawerIcon: <Ionicons name='ios-home' size={22} />
+        },
     },
-    About: AboutNavigator,
-    Create: CreateNavigator,
+    About: {
+        screen: AboutNavigator,
+        navigationOptions: {
+            drawerLabel: 'About',
+            drawerIcon: <Ionicons name='ios-information-circle' size={22} />
+        },
+    },
+    Create: {
+        screen: CreateNavigator,
+        navigationOptions: {
+            drawerLabel: 'New post',
+            drawerIcon: <Ionicons name='ios-add-circle' size={22} />
+        },
+    },
+}, {
+    contentOptions: {
+        activeTintColor: THEME.MAIN_COLOR,
+        labelStyle: {
+            fontFamily: 'open-bold'
+        }
+    }
 });
 
 export const AppNavigation = createAppContainer(MainNavigator);

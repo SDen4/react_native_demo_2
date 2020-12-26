@@ -3,7 +3,6 @@ import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import { PostList } from '../components/PostList';
 import { AppHeaderIcon } from '../components/AppHeaderIcon';
 import { useSelector } from 'react-redux';
-// import { DATA } from '../data';
 
 export const BookmarkedScreen = ({ navigation }) => {
     const goToPost = (post) => {

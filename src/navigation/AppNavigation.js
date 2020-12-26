@@ -71,12 +71,26 @@ const BottomNavigator =
               },
           });
 
+const AboutNavigator = createStackNavigator(
+    {
+        About: AboutScreen,
+    },
+    navigatorOptions
+);
+
+const CreateNavigator = createStackNavigator(
+    {
+        Create: CreateScreen,
+    },
+    navigatorOptions
+);
+
 const MainNavigator = createDrawerNavigator({
     PostsTabs: {
-        screen: BottomNavigator
+        screen: BottomNavigator,
     },
-    About: AboutScreen,
-    Create: CreateScreen,
+    About: AboutNavigator,
+    Create: CreateNavigator,
 });
 
 export const AppNavigation = createAppContainer(MainNavigator);

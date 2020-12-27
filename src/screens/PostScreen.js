@@ -5,13 +5,14 @@ import { AppHeaderIcon } from '../components/AppHeaderIcon';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { THEME } from '../theme';
-import { DATA } from '../data';
-import { toggleBooked } from '../store/actions/postAction';
+// import { DATA } from '../data';
+import { removePost, toggleBooked } from '../store/actions/postAction';
 
 export const PostScreen = ({ navigation }) => {
     const dispatch = useDispatch();
     const postId = navigation.getParam('postId');
-    const post = DATA.find((data) => data.id === postId);
+    // const post = DATA.find((data) => data.id === postId);
+    const post = useSelector((state) => state.post.allPosts.find((p) => p.id === postId));
 
     const booked = useSelector((state) =>
         state.post.bookedPosts.some((post) => post.id === postId)
@@ -39,11 +40,23 @@ export const PostScreen = ({ navigation }) => {
                     text: 'Cancel',
                     style: 'cancel',
                 },
-                { text: 'Delete', style: 'destructive', onPress: () => {} },
+                {
+                    text: 'Delete',
+                    style: 'destructive',
+                    onPress() {
+                        navigation.navigate('Main');
+                        dispatch(removePost(postId));
+                    },
+                },
             ],
             { cancelable: false }
         );
     };
+
+    //Prevent error - after deletion we continue work with old data
+    if (!post) {
+        return null;
+    }
 
     return (
         <ScrollView>

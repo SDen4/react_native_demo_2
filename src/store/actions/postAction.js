@@ -1,7 +1,7 @@
 // action for downloading all the posts
 
 import { DATA } from '../../data';
-import { LOAD_POSTS, REMOVE_POST, TOGGLE_BOOKED } from '../types';
+import { ADD_POST, LOAD_POSTS, REMOVE_POST, TOGGLE_BOOKED } from '../types';
 
 export const loadPosts = () => {
     return {
@@ -21,5 +21,13 @@ export const removePost = (id) => {
     return {
         type: REMOVE_POST,
         payload: id,
+    };
+};
+
+export const addPost = (post) => {
+    post.id = Date.now().toString();
+    return {
+        type: ADD_POST,
+        payload: post,
     };
 };

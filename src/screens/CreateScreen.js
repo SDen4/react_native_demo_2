@@ -68,7 +68,7 @@ export const CreateScreen = ({ navigation }) => {
 
 CreateScreen.navigationOptions = ({ navigation }) => ({
     headerTitle: 'New post',
-    headerLeft: () => (
+    headerLeft: (
         <HeaderButtons HeaderButtonComponent={AppHeaderIcon}>
             <Item
                 title='Toggle drawer'

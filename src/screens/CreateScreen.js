@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import {
     ScrollView,
     View,
@@ -16,20 +16,18 @@ import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import { AppHeaderIcon } from '../components/AppHeaderIcon';
 import { THEME } from '../theme';
 import { addPost } from '../store/actions/postAction';
+import { PhotoPicker } from '../components/PhotoPicker';
 
 export const CreateScreen = ({ navigation }) => {
     const dispatch = useDispatch();
     const [text, setText] = useState('');
-
-    //temp!!!
-    const img =
-        'https://cdn.londonandpartners.com/visit/general-london/areas/river/76709-640x360-houses-of-parliament-and-london-eye-on-thames-from-above-640.jpg';
+    const imageRef = useRef(); //smt like local state but without re-rendering of component
 
     const saveHandler = () => {
         const post = {
             date: new Date().toJSON(),
             text: text,
-            img: img,
+            img: imageRef.current,
             booked: false,
         };
         dispatch(addPost(post));
@@ -37,6 +35,10 @@ export const CreateScreen = ({ navigation }) => {
         navigation.navigate('Main');
         //...and clear the text in textInput for new posts
         setText('');
+    };
+
+    const photoPickHandler = (uri) => {
+        imageRef.current = uri;
     };
 
     return (
@@ -51,13 +53,13 @@ export const CreateScreen = ({ navigation }) => {
                         onChangeText={setText}
                         multiline
                     />
-                    <Image
-                        style={styles.image}
-                        source={{
-                            uri: img,
-                        }}
+                    <PhotoPicker onPick={photoPickHandler} />
+                    <Button
+                        title='Add post'
+                        color={THEME.MAIN_COLOR}
+                        onPress={saveHandler}
+                        disabled={!text}
                     />
-                    <Button title='Add post' color={THEME.MAIN_COLOR} onPress={saveHandler} />
                 </View>
             </TouchableWithoutFeedback>
         </ScrollView>

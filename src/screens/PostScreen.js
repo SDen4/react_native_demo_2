@@ -11,7 +11,6 @@ import { removePost, toggleBooked } from '../store/actions/postAction';
 export const PostScreen = ({ navigation }) => {
     const dispatch = useDispatch();
     const postId = navigation.getParam('postId');
-    // const post = DATA.find((data) => data.id === postId);
     const post = useSelector((state) => state.post.allPosts.find((p) => p.id === postId));
 
     const booked = useSelector((state) =>
@@ -24,8 +23,8 @@ export const PostScreen = ({ navigation }) => {
 
     const toggleHandler = useCallback(() => {
         console.log(postId);
-        dispatch(toggleBooked(postId));
-    }, [dispatch, postId]);
+        dispatch(toggleBooked(post));
+    }, [dispatch, post]);
 
     useEffect(() => {
         navigation.setParams({ toggleHandler });
